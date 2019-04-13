@@ -25,6 +25,14 @@ npm run e2e
 
 # run all tests
 npm test
+
+# install marked md解析依赖
+npm install marked --save
+
+# install hilj 代码高亮
+npm install highlight.js --save
+
+
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
