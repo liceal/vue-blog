@@ -32,8 +32,8 @@ export default {
         Delete
     },
     methods:{
-
-    }
+        
+    },
 }
 </script>
 

@@ -6,7 +6,7 @@ import article from '@/components/article/Blog-article'
 import add from '@/components/admin/add'
 import update from '@/components/admin/update'
 import admin from '@/components/admin/admin'
-
+import login from '@/components/admin/login'
 Vue.use(Router)
 
 export default new Router({
@@ -25,19 +25,18 @@ export default new Router({
       path:'/admin',
       name:'admin',
       component:admin,
-      children:[
-        {
-          path:'/',
-          name:'add',
-          component:add
-        },
-        {
-          path:'update',
-          name:'update',
-          component:update
-        },
-        
-      ]
+      meta:{
+        needLogin: false
+      }
     },
+    {
+      path:'/login',
+      name:'login',
+      component:login,
+      meta:{
+        user:'',
+        password:''
+      }
+    }
   ]
 })

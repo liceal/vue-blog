@@ -32,3 +32,16 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+router.beforeEach((to,from,next)=>{
+  console.log(to)
+  console.log(from)
+  console.log(next)
+  console.log(window.sessionStorage)
+  if(to.meta['needLogin']){
+    
+  }else{
+    //允许跳转
+    next()
+  }
+})
