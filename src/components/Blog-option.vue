@@ -2,6 +2,7 @@
     <div class="main">
         <a href="/" class="iconfont">&#xe7c6;首页</a>
         <a href="http://linxianao.com" class="iconfont">&#xe7ce;简介</a>
+        <a href="/admin" class="iconfont">&#xe791;管理</a>
     </div>
 </template>
 

@@ -41,6 +41,7 @@ export default {
 }
 body{
   background: url("./assets/home.png") no-repeat center top fixed;
+  /* background: url("./../static/home.png") no-repeat center top fixed; */
   background-size: cover; 
   margin: 0px;
   padding: 0px;

@@ -8,8 +8,8 @@
                 <hr style="height:1px;border:none;border-top:1px dashed #0066CC;width: 80%;" />
             </div>
             <div class="part-main">
-                <h2>  
-                    <a :href="'#/article/'+item.id" style="color:black">{{item.title}}</a>     
+                <h2> 
+                    <a :href="'/article/'+item.id" style="color:black">{{item.title}}</a>     
                 </h2>
                 <p v-html="item.content"></p>
             </div>
