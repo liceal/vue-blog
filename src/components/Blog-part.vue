@@ -11,31 +11,65 @@
                 <h2>  
                     <a :href="'#/article/'+item.id" style="color:black">{{item.title}}</a>     
                 </h2>
-                <p>{{item.content}}</p>
+                <p v-html="item.content"></p>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import marked from 'marked'
+import hljs from "highlight.js";
+import javascript from 'highlight.js/lib/languages/javascript';
+import 'highlight.js/styles/monokai-sublime.css';
 export default {
     name:'blog-part',
     data(){
         return{
+            test:'# h1',
             items:[
-                {id:1,title:'王兰花',content:'测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容',date:'2019-04-12',number:'999'},
-                {id:2,title:'测试标题',content:'测试内容',date:'2019-04-12',number:'999'},
-                {id:3,title:'测试标题',content:'测试内容',date:'2019-04-12',number:'999'},
-                {id:4,title:'测试标题',content:'测试内容',date:'2019-04-12',number:'999'},
-                {id:5,title:'测试标题',content:'测试内容',date:'2019-04-12',number:'999'},
-                {id:6,title:'测试标题',content:'测试内容',date:'2019-04-12',number:'999'},
+                // {id:1,title:'王兰花',content:'测试内容',date:'2019-04-12',number:'999'},
             ],
             color:['#FF7F00','#FA8072','#EE7942','#EE6363','#CD6600']
         }
     },
     methods:{
-
-    }
+        asdasd:function(){
+            
+        }
+    },
+    created(){
+        this.$http.get(
+            'http://vue.php.me/service.php'
+        ).then(Response => {
+            // console.log(Response.data[0]['content'])
+            // Response.data.forEach(element => {
+            //     element['content'] = marked(element['content'])
+            //     this.items.push(element)
+            // });
+            this.items = Response.data
+        },error => {
+            console.log('出错:'.error)               
+        })
+    },
+    mounted(){
+      marked.setOptions({
+          renderer: new marked.Renderer(),
+          highlight: function(code) {
+            return hljs.highlightAuto(code).value;
+          },
+          pedantic: false,
+          gfm: true,
+          tables: true,
+          breaks: false,
+          sanitize: false,
+          smartLists: true,
+          smartypants: false,
+          xhtml: false
+        }
+      );
+    },
+    
 }
 </script>
 
@@ -53,6 +87,8 @@ export default {
     margin: 1%;
     opacity: 0.8;
     min-height: 200px;
+    max-block-size: 300px;
+    overflow: hidden;
     float: right;
 }
 .part-left{

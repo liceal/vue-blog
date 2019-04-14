@@ -2,7 +2,7 @@
     <div>
         <div id="content" class="content">
             <h1 class="title">{{title}}</h1>
-            <p>{{content}}</p>
+            <p v-html="content"></p>
             <div class="note">
                 <div class="note_content">
                     <ul>
@@ -17,6 +17,11 @@
 </template>
 
 <script>
+//marked+hjls
+import marked from 'marked'
+import hljs from "highlight.js";
+import javascript from 'highlight.js/lib/languages/javascript';
+import 'highlight.js/styles/monokai-sublime.css';
 export default {
     name:"Blog-article",
     data(){
@@ -30,6 +35,40 @@ export default {
     },
     created(){
         // console.log(this.$route.params.id);
+        this.$http.get(
+            'http://vue.php.me/service.php',
+            {
+                params:{
+                    id:this.$route.params.id
+                }
+            }
+        ).then(Response => {
+            // console.log(Response.data)
+            this.title = Response.data[0]['title']
+            //md解析
+            this.content = marked(Response.data[0]['content'])
+            
+        },error => {
+            console.log('出错:'.error)               
+        })
+        this.link = window.location.href
+    },
+    mounted(){
+      marked.setOptions({
+          renderer: new marked.Renderer(),
+          highlight: function(code) {
+            return hljs.highlightAuto(code).value;
+          },
+          pedantic: false,
+          gfm: true,
+          tables: true,
+          breaks: false,
+          sanitize: false,
+          smartLists: true,
+          smartypants: false,
+          xhtml: false
+        }
+      );
     }
 }
 </script>

@@ -1,43 +1,40 @@
 <template>
     <div class="main">
-        <markdown-editor v-model="content"></markdown-editor>
-        <button @click="save">保存</button>
+        <el-tabs v-model="handle" class="tabs" type="card">
+            <el-tab-pane 
+            v-for="(item,key) in items"
+            :key="key" 
+            :label="item">
+            <add v-if="key==0"></add>
+            <update v-if="key==1"></update>
+            </el-tab-pane>
+        </el-tabs>
     </div>
 </template>
 
 <script>
-import { markdownEditor } from 'vue-simplemde'
-import { truncate } from 'fs';
+import add from './add'
+import update from './update'
 export default {
     name:'admin',
     data(){
         return{
-            content:'',
-            configs: {
-                spellChecker: false,// 禁用拼写检查
-                toolbar:true
-            }
+            items:['文章增加','文章修改','文章删除','文章查询'],
+            handle:''
         }
-    },
-    created(){
-        // var simplemde = new SimpleMDE({
-        //     element: document.getElementById("md")
-        // });
     },
     components:{
-        markdownEditor 
-    },
-    methods:{
-        save(){
-            console.log(this.content)
-        }
+        add,
+        update
     }
 }
 </script>
 
 <style scoped>
 .main{
-      width: 60%;
-      margin: 0 auto;
-  }
+    margin: 0 auto;
+}
+.tabs{
+    margin: 0 auto;
+}
 </style>
