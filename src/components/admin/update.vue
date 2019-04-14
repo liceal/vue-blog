@@ -1,7 +1,11 @@
 <template>
     <div>
-        <div class="select">
-            <el-select v-model="option" placeholder="标题" clearable @change="Otitle(option)">
+        <div class="main">
+            <el-select v-model="option" 
+             placeholder="标题" 
+             clearable 
+             @change="Otitle(option)"
+             @focus="select()">
                 <el-option
                 v-for="(item,key) in items"
                 :key="key"
@@ -9,10 +13,8 @@
                 :value="item.id">
                 </el-option>
             </el-select>
-        </div>
-        <div class="main">
-            <strong>标题：</strong><input v-model="title" class="title">
-            <el-button @click="update" size="mini">修改并保存</el-button>
+            <el-input v-model="title" placeholder="请输入标题"></el-input>
+            <el-button @click="update">修改并保存</el-button>
             <markdown-editor v-model="content"></markdown-editor>
             <p>{{msg}}</p>
         </div>
@@ -38,15 +40,7 @@ export default {
         }
     },
     created(){
-        this.$http.get(
-            'http://vue.php.me/service.php',
-        ).then(Response => {
-            // console.log(Response.data)
-            this.items = Response.data
-        },error => {
-            console.log('出错:'.error)
-            this.msg = Response.data             
-        })
+        
     },
     components:{
         markdownEditor 
@@ -101,12 +95,28 @@ export default {
                     },
                 ).then(Response=>{
                     // console.log(Response.data)
-                    this.title = Response.data[0]['title']
-                    this.content = Response.data[0]['content']
+                    if(Response.data[0]['title']){
+                        this.title = Response.data[0]['title']
+                    }
+                    if(Response.data[0]['content']){
+                        this.content = Response.data[0]['content']
+                    }
                 }).catch(error =>{
                     console.log(error.status)
                 })
             }
+        },
+        select(){
+            // alert(1111);
+            this.$http.get(
+                'http://vue.php.me/service.php',
+            ).then(Response => {
+                console.log("更新数据成功！")
+                this.items = Response.data
+            },error => {
+                console.log('出错:'.error)
+                this.msg = Response.data             
+            })
         }
     },
     
@@ -118,16 +128,17 @@ export default {
       width: 60%;
       margin: 0 auto;
 }
-.main strong{
-    color: white;
-}
 .main p{
     text-align: center;
     color: #ccc;
 }
 .select{
-    margin: 60px;
+    display: flex;
+    justify-content: center;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+.el-input{
+    width: 150px;
 }
 </style>

@@ -7,6 +7,7 @@
             :label="item">
             <add v-if="key==0"></add>
             <update v-if="key==1"></update>
+            <delete v-if="key==2"></delete>
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -15,17 +16,23 @@
 <script>
 import add from './add'
 import update from './update'
+import Delete from './Delete'
+
 export default {
     name:'admin',
     data(){
         return{
-            items:['文章增加','文章修改','文章删除','文章查询'],
+            items:['文章增加','文章修改','文章删除|查询'],
             handle:''
         }
     },
     components:{
         add,
-        update
+        update,
+        Delete
+    },
+    methods:{
+
     }
 }
 </script>
@@ -36,5 +43,8 @@ export default {
 }
 .tabs{
     margin: 0 auto;
+    background-color: white;
+    opacity: .8;
+    min-height: 600px;
 }
 </style>

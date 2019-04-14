@@ -48,8 +48,8 @@ export default {
             //     this.items.push(element)
             // });
             this.items = Response.data
-        },error => {
-            console.log('出错:'.error)               
+        }).catch(error =>{
+            console.log('出错'.error)
         })
     },
     mounted(){

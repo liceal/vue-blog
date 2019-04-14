@@ -22,19 +22,22 @@ export default new Router({
       component:article
     },
     {
-      path:'/add',
-      name:'add',
-      component:add,
-    },
-    {
-      path:'/update',
-      name:'update',
-      component:update
-    },
-    {
       path:'/admin',
       name:'admin',
-      component:admin
+      component:admin,
+      children:[
+        {
+          path:'/',
+          name:'add',
+          component:add
+        },
+        {
+          path:'update',
+          name:'update',
+          component:update
+        },
+        
+      ]
     },
   ]
 })

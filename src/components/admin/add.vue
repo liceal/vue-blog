@@ -1,7 +1,7 @@
 <template>
     <div class="main">
-        <strong>标题：</strong><input v-model="title" class="title">
-        <button @click="save">保存</button>
+        <el-input v-model="title" placeholder="请输入标题"></el-input>
+        <el-button @click="save">保存</el-button>
         <markdown-editor v-model="content"></markdown-editor>
         <p>{{msg}}</p>
     </div>
@@ -63,11 +63,11 @@ export default {
       width: 60%;
       margin: 0 auto;
 }
-.main strong{
-    color: white;
-}
 .main p{
     text-align: center;
     color: #ccc;
+}
+.el-input{
+    width: 150px;
 }
 </style>
