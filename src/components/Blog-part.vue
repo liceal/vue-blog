@@ -4,7 +4,7 @@
             <div class="part-left" :style="{backgroundColor:color[(index+1)%5]}">
                 <p>{{item.date}}</p>
                 <hr style="height:1px;border:none;border-top:1px dashed #0066CC;width: 80%;" />
-                <p><a :href="'#/article/'+item.id" style="color:white">{{item.number}} 浏览</a></p>
+                <p><a :href="'/article/'+item.id" style="color:white">{{item.number}} 浏览</a></p>
                 <hr style="height:1px;border:none;border-top:1px dashed #0066CC;width: 80%;" />
             </div>
             <div class="part-main">
