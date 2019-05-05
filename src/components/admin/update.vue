@@ -23,6 +23,7 @@
 
 <script>
 import { markdownEditor } from 'vue-simplemde'
+import config from '../config.json'
 export default {
     name:'update',
     data(){
@@ -54,11 +55,12 @@ export default {
                     type:'warning'
                 }).then(()=>{
                     this.$http.put(
-                        'http://vue.php.me/service.php',
+                        config['serverUrl'],
                         {
                             id:this.id,
                             title:this.title,
-                            content:this.content
+                            content:this.content,
+                            status:'article',
                         },
                         {emulateJSON:true}
                     ).then(Response => {
@@ -87,7 +89,7 @@ export default {
             if(id){
                 this.id = id
                 this.$http.get(
-                    'http://vue.php.me/service.php',
+                    config['serverUrl'],
                     {
                         params:{
                             id:id
@@ -109,7 +111,7 @@ export default {
         select(){
             // alert(1111);
             this.$http.get(
-                'http://vue.php.me/service.php',
+                config['serverUrl'],
             ).then(Response => {
                 console.log("更新数据成功！")
                 this.items = Response.data

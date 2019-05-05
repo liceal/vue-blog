@@ -1,15 +1,27 @@
 <template>
     <div class="main">
-        <a href="/" class="iconfont">&#xe7c6;首页</a>
+        <a @click="jump('blog')" class="iconfont">&#xe7c6;首页</a>
         <a href="http://linxianao.com" class="iconfont">&#xe7ce;简介</a>
-        <a href="/admin" class="iconfont">&#xe791;管理</a>
+        <a @click="jump('login')" class="iconfont">&#xe791;管理</a>
     </div>
 </template>
 
 <script>
 export default {
     name:'blog-option',
-
+    data(){
+        return{
+            
+        }
+    },
+    methods:{
+        jump(name){
+            const route = {
+                name:name
+            }
+            this.$router.push(route)
+        }
+    }
 }
 </script>
 

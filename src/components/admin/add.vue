@@ -1,14 +1,25 @@
 <template>
     <div class="main">
-        <el-input v-model="title" placeholder="请输入标题"></el-input>
-        <el-button @click="save">保存</el-button>
-        <markdown-editor v-model="content"></markdown-editor>
-        <p>{{msg}}</p>
+        <el-col :span="14" >
+           <div class="article">
+                <el-input v-model="title" placeholder="请输入标题"></el-input>
+                <el-button @click="save">保存</el-button>
+                <markdown-editor v-model="content"></markdown-editor>
+                <p>{{msg}}</p>
+            </div>
+        </el-col>
+        <el-col :span="10">
+            <div class="imgList">
+                <upload></upload>
+            </div>
+        </el-col>
     </div>
 </template>
 
 <script>
 import { markdownEditor } from 'vue-simplemde'
+import upload from './upload'
+import config from '../config.json'
 export default {
     name:'add',
     data(){
@@ -28,16 +39,18 @@ export default {
         // });
     },
     components:{
-        markdownEditor 
+        markdownEditor,
+        upload
     },
     methods:{
         save(){
             if(this.title && this.content){
                 this.$http.post(
-                    'http://vue.php.me/service.php',
+                    config['serverUrl'],
                     {
                         title:this.title,
-                        content:this.content
+                        content:this.content,
+                        key:this.$cookieStore.getCookie('username')//liceal
                     },
                     {emulateJSON:true}
                 ).then(Response => {
@@ -60,12 +73,19 @@ export default {
 
 <style scoped>
 .main{
-      width: 60%;
+      width: 90%;
       margin: 0 auto;
 }
-.main p{
+.article p{
     text-align: center;
     color: #ccc;
+}
+.article{
+    /* float: left; */
+ 
+}
+.imgList{
+    /* float: right */
 }
 .el-input{
     width: 150px;

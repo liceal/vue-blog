@@ -1,6 +1,8 @@
 <template>
     <div>
+        
         <div id="content" class="content">
+            <el-button icon="el-icon-back" type="primary" @click="back()">BACK</el-button>
             <h1 class="title">{{title}}</h1>
             <p v-html="content"></p>
             <div class="note">
@@ -22,6 +24,7 @@ import marked from 'marked'
 import hljs from "highlight.js";
 import javascript from 'highlight.js/lib/languages/javascript';
 import 'highlight.js/styles/monokai-sublime.css';
+import config from '../config.json'
 export default {
     name:"Blog-article",
     data(){
@@ -34,12 +37,13 @@ export default {
         }
     },
     created(){
-        // console.log(this.$route.params.id);
+        scroll(0, 0); //每次浏览页面 滑轮置顶
+        console.log(this.$route.query.id);
         this.$http.get(
-            'http://vue.php.me/service.php',
+            config['serverUrl'],
             {
                 params:{
-                    id:this.$route.params.id
+                    id:this.$route.query.id
                 }
             }
         ).then(Response => {
@@ -49,7 +53,7 @@ export default {
             this.content = marked(Response.data[0]['content'])
             
         },error => {
-            console.log('出错:'.error)               
+            console.log('出错:'+error)             
         })
         this.link = window.location.href
     },
@@ -69,6 +73,14 @@ export default {
           xhtml: false
         }
       );
+    },
+    methods:{
+        back(){
+            const route = {
+                name:'blog',
+            }
+            this.$router.push(route)
+        }
     }
 }
 </script>
@@ -76,7 +88,7 @@ export default {
 <style scoped>
 .content{
     margin: 0 auto;
-    max-width: 50%;
+    min-width: 50%;
     min-height: 700px;
     background-color:white;
     padding: 60px;

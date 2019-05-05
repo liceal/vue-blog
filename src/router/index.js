@@ -15,10 +15,10 @@ export default new Router({
     {
       path: '/',
       name: 'blog',
-      component: Blog
+      component: Blog,
     },
     {
-      path:'/article/:id(\\w+)',
+      path:'/article',
       name:'article',
       component:article
     },

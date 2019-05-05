@@ -18,11 +18,19 @@ import VueResource from 'vue-resource'
 import VueSimplemde from 'vue-simplemde'
 import 'simplemde/dist/simplemde.min.css'
 
+//cookie
+import {setCookie,getCookie,delCookie} from './assets/login/cookie'
+
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 Vue.use(VueResource);
 Vue.use(VueSimplemde);
+Vue.prototype.$cookieStore = {
+  setCookie,
+  getCookie,
+  delCookie
+}
 
 
 /* eslint-disable no-new */
@@ -34,14 +42,15 @@ new Vue({
 })
 
 router.beforeEach((to,from,next)=>{
+  //以后再此设置路由拦截
+
   // console.log(to)
   // console.log(from)
   // console.log(next)
   // console.log(window.sessionStorage)
-  // if(to.meta['needLogin']){
-    
-  // }else{
-  //   //允许跳转
-  //   next()
-  // }
+  // console.log(document.cookie)
+  
+  //允许跳转
+  next()
+  
 })

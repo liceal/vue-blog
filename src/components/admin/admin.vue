@@ -26,6 +26,15 @@ export default {
             handle:''
         }
     },
+    created(){
+        let username = this.$cookieStore.getCookie('username')
+        if(!username){
+            const route = {
+                name:'login',
+            }
+            this.$router.push(route)
+        }
+    },
     components:{
         add,
         update,

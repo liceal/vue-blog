@@ -4,12 +4,12 @@
             <div class="part-left" :style="{backgroundColor:color[(index+1)%5]}">
                 <p>{{item.date}}</p>
                 <hr style="height:1px;border:none;border-top:1px dashed #0066CC;width: 80%;" />
-                <p><a :href="'/article/'+item.id" style="color:white">{{item.number}} 浏览</a></p>
+                <p><a @click="jump(item.id)" style="color:white;cursor:pointer">{{item.number}} 浏览</a></p>
                 <hr style="height:1px;border:none;border-top:1px dashed #0066CC;width: 80%;" />
             </div>
             <div class="part-main">
                 <h2> 
-                    <a :href="'/article/'+item.id" style="color:black">{{item.title}}</a>     
+                    <a @click="jump(item.id)" style="color:black;cursor:pointer">{{item.title}}</a>     
                 </h2>
                 <p v-html="item.content"></p>
             </div>
@@ -22,6 +22,7 @@ import marked from 'marked'
 import hljs from "highlight.js";
 import javascript from 'highlight.js/lib/languages/javascript';
 import 'highlight.js/styles/monokai-sublime.css';
+import config from './config.json'
 export default {
     name:'blog-part',
     data(){
@@ -34,13 +35,21 @@ export default {
         }
     },
     methods:{
-        asdasd:function(){
-            
-        }
+        jump(id){
+            //跳转到打分页面
+            // console.log(id)
+            const route={
+                name:'article',//传递的组件name
+                query:{//传递参数
+                    id:id
+                }
+            }
+            this.$router.push(route)//跳转
+        },
     },
     created(){
         this.$http.get(
-            'http://vue.php.me/service.php'
+            config['serverUrl']
         ).then(Response => {
             // console.log(Response.data[0]['content'])
             // Response.data.forEach(element => {
@@ -76,7 +85,7 @@ export default {
 <style scoped>
 .main{
     /* background-color: #ccc; */
-    max-width: 1000px;
+    width: 50%;
     display: flex;
     flex-wrap: wrap;
     
@@ -89,7 +98,7 @@ export default {
     min-height: 200px;
     max-block-size: 300px;
     overflow: hidden;
-    float: right;
+    float: left;
 }
 .part-left{
     /* background-color: red; */
