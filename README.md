@@ -1,6 +1,6 @@
 # blog
 
-> A Vue.js project
+> http://linxianao.com/dist/index.html#/blog
 
 ## Build Setup
 
